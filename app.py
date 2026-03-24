@@ -35,10 +35,10 @@ def get_gemini_client():
         st.error(f"Failed to initialize Gemini Client. Check sequence in .streamlit/secrets.toml. {e}")
         return None
 
-def call_gemini(client, user_prompt):
+def call_gemini(client, user_prompt, model_name="gemini-2.0-flash"):
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model=model_name,
             contents=[user_prompt],
             config={
                 "system_instruction": SYSTEM_PROMPT,
@@ -47,7 +47,15 @@ def call_gemini(client, user_prompt):
         )
         return response.text
     except Exception as e:
-        st.error(f"Gemini API Error: {str(e)}")
+        error_msg = str(e)
+        if "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
+            st.error("⏳ **Rate Limit Hit!** You've requested too much too fast (Google Free Tier allows ~15 requests per minute). Please wait 10 seconds and try again!")
+        elif "400" in error_msg or "API_KEY_INVALID" in error_msg or "INVALID_ARGUMENT" in error_msg:
+            st.error("🔑 **Invalid API Key!** Your Gemini API key is expired, invalid, or missing. Please check your Google AI Studio account and update your connection.")
+        elif "403" in error_msg or "PERMISSION_DENIED" in error_msg:
+            st.error("🛡️ **API Key Blocked!** Google detected this key as leaked and disabled it. Please generate a brand new key on Google AI Studio.")
+        else:
+            st.error(f"⚠️ **Unexpected AI Error:** {error_msg}")
         return None
 
 def reset_app():
@@ -94,7 +102,7 @@ if st.session_state.step == 1:
                             jd_text=st.session_state.jd_text,
                             questions=st.session_state.app_questions
                         )
-                        qa_result = call_gemini(client, qa_prompt)
+                        qa_result = call_gemini(client, qa_prompt, model_name="gemini-1.5-pro")
                         if qa_result:
                             st.session_state.qa_answers = qa_result
                             st.session_state.step = 5
@@ -133,7 +141,7 @@ if st.session_state.step == 1:
                             story_index=STORY_INDEX,
                             positioning_guide=POSITIONING_GUIDE
                         )
-                        result = call_gemini(client, prompt)
+                        result = call_gemini(client, prompt, model_name="gemini-1.5-pro")
                         if result:
                             st.session_state.matching_matrix = result
                             st.session_state.step = 2
@@ -170,7 +178,7 @@ elif st.session_state.step == 2:
                         user_context=st.session_state.user_context,
                         golden_examples=GOLDEN_EXAMPLES
                     )
-                    draft_result = call_gemini(client, prompt)
+                    draft_result = call_gemini(client, prompt, model_name="gemini-1.5-pro")
                     
                     if draft_result:
                         st.session_state.draft_text = draft_result
@@ -178,7 +186,7 @@ elif st.session_state.step == 2:
                         # Trigger critique immediately
                         with st.spinner("Running self-critique..."):
                             critique_prompt = CRITIQUE_PROMPT.format(draft_text=draft_result)
-                            critique_res = call_gemini(client, critique_prompt)
+                            critique_res = call_gemini(client, critique_prompt, model_name="gemini-1.5-pro")
                             
                             # Parse JSON
                             if critique_res:
@@ -234,14 +242,14 @@ elif st.session_state.step == 3:
                         user_feedback=st.session_state.user_feedback,
                         critique_failures=st.session_state.critique_failures_text
                     )
-                    revised = call_gemini(client, rev_prompt)
+                    revised = call_gemini(client, rev_prompt, model_name="gemini-1.5-pro")
                     if revised:
                         st.session_state.draft_text = revised
                         st.session_state.revision_count += 1
                         
                         with st.spinner("Running self-critique..."):
                             critique_prompt = CRITIQUE_PROMPT.format(draft_text=revised)
-                            critique_res = call_gemini(client, critique_prompt)
+                            critique_res = call_gemini(client, critique_prompt, model_name="gemini-1.5-pro")
                             try:
                                 clean_json = critique_res.replace("```json", "").replace("```", "").strip()
                                 critique_dict = json.loads(clean_json)
