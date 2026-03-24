@@ -70,12 +70,17 @@ and complementing it with insights from user focus groups to tailor offer strate
  Conducted root-cause analysis of fraud and authorization issues for Colombia’s largest bank; coordinated Marketing & 
 Communications, Risk, and Product teams to deploy optimized controls, improving approval rates by 17 p.p 
  
+CMILLAS (Social entrepreneurship supporting education of marginalized children) Bogotá, Colombia
+Co-founder & Volunteer (2019 - 2021)
+• Led creation of alliance with two major foundations in Colombia (Laudes infantis & Alianza Educativa).
+• Developed and co-managed volunteer program, successfully building network of over 30 volunteers who supported educational needs of ~90 children.
+
 ADDITIONAL INFORMATION 
  
 Certifications: Supervised ML: Regression and Classification & Adv. Algorithms | Python for Data Science, AI & Development 
 Technical Skills: Python | SQL | Claude | Cursor | n8n | LangChain | FAISS | Amplitude & Google Analytics | Jira | Figma | Split.io 
 Additional Languages: Spanish (Native) | German (Advanced) | Portuguese (Basic) 
-Interests: Running (13.1 miles, 91st percentile pace) | AI builder: personal projects with RAG, MCP agents, LLMs, and vector DBs 
+Interests: Running (13.1 miles, 91st percentile pace) | AI builder & Vibe Coding: consistently leveraging AI tools in my free time to build personal projects with RAG, MCP agents, LLMs, and vector DBs to solve real problems.
 
 """
 
