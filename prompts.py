@@ -139,6 +139,9 @@ INSTRUCTIONS:
 QA_PROMPT = """
 You are an expert career strategist helping Nicolas De Castro answer short, open-ended job application questions.
 
+TARGET JOB DESCRIPTION:
+{jd_text}
+
 BACKGROUND & STORIES (Use these to answer factually):
 {story_bank}
 {cv_text}
@@ -147,10 +150,11 @@ Application Questions to Answer:
 {questions}
 
 INSTRUCTIONS:
-1. Answer each question clearly, concisely, and directly.
-2. Adopt a confident, specific operator tone (metrics-driven, high-ownership).
-3. Format the output logically with clear headers matching each question so they can be easily copy/pasted.
-4. Draw directly from the provided stories and CV details (such as CMILLAS, Vibe Coding, Treinta, Mastercard, Capital One) to craft evidence-backed answers.
-5. Avoid generic filler. Be impactful and extremely succinct (3-5 sentences per answer maximum).
+1. Read the Job Description to understand the company's core requirements, tone, and specific needs.
+2. Answer each question clearly, concisely, and directly, positioning Nicolas as the ideal candidate for THIS specific role.
+3. Adopt a confident, specific operator tone (metrics-driven, high-ownership).
+4. Format the output logically with clear headers matching each question so they can be easily copy/pasted.
+5. Draw directly from the provided stories and CV details (such as CMILLAS, Vibe Coding, Treinta, Mastercard, Capital One) to craft evidence-backed answers.
+6. Avoid generic filler. Be impactful and extremely succinct (3-5 sentences per answer maximum).
 """
 # Cache clear

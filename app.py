@@ -67,7 +67,8 @@ if st.session_state.step == 1:
     st.header("Step 1: Input Job Details")
     
     with st.container():
-        st.session_state.jd_text = st.text_area("Paste the Job Description OR Application Questions", height=200)
+        st.session_state.jd_text = st.text_area("Job Description", height=200)
+        st.session_state.app_questions = st.text_area("Application Questions (For 'Answer App Questions' flow only)", height=150)
         st.session_state.user_context = st.text_area("Additional Context (Optional)", placeholder="Recent news, why you care, personal connection...")
         
         col1, col2, col3 = st.columns(3)
@@ -80,7 +81,9 @@ if st.session_state.step == 1:
             
         if analyze_clicked or quick_clicked or qa_clicked:
             if not st.session_state.jd_text:
-                st.warning("Please provide a Job Description or Open-Ended Questions.")
+                st.warning("Please provide the Job Description.")
+            elif qa_clicked and not st.session_state.get("app_questions"):
+                st.warning("Please provide the Application Questions.")
             elif client:
                 if qa_clicked:
                     st.session_state.quick_mode = False
@@ -88,7 +91,8 @@ if st.session_state.step == 1:
                         qa_prompt = QA_PROMPT.format(
                             story_bank=STORY_BANK,
                             cv_text=CV_TEXT,
-                            questions=st.session_state.jd_text
+                            jd_text=st.session_state.jd_text,
+                            questions=st.session_state.app_questions
                         )
                         qa_result = call_gemini(client, qa_prompt)
                         if qa_result:
