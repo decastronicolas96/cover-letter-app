@@ -53,7 +53,7 @@ def reset_app():
         del st.session_state[key]
     st.rerun()
 
-st.title("💼 Cover Letter Generator")
+st.title("🚀 Cover Letter Generator")
 st.markdown("Targeting: Product Management, AI Strategist, Strategy & Ops")
 
 client = get_gemini_client()
@@ -72,7 +72,7 @@ if st.session_state.step == 1:
         with col1:
             analyze_clicked = st.button("Analyze & Match (Standard)", use_container_width=True)
         with col2:
-            quick_clicked = st.button("⚡ Quick Generation (Direct to PDF)", use_container_width=True)
+            quick_clicked = st.button("🏎️ Quick Generation (Direct to PDF)", use_container_width=True)
             
         if analyze_clicked or quick_clicked:
             if not st.session_state.jd_text:
