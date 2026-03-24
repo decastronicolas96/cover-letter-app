@@ -16,7 +16,9 @@ This application features three distinct, context-aware AI generation flows:
 ## 🛠️ Tech Stack & Architecture
 
 - **Frontend:** Streamlit (Mobile-responsive UI, Session State management)
-- **AI/LLM:** Google Gemini 2.5 Flash API (with rigorous system prompts and multi-turn drafting/critique cycles)
+- **AI/LLM:** Dual-Engine Architecture 
+  - `gemini-1.5-pro`: Deep reasoning model used for robust strategy construction and parsing open-ended questions.
+  - `gemini-2.0-flash`: High-throughput, lightning-fast model used to instantly execute the Quick Generation PDF flow.
 - **PDF Generation:** ReportLab (for highly precise, single-page PDF outputs)
 - **Deployment:** Streamlit Community Cloud (connected via GitHub CI/CD)
 

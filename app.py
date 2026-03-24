@@ -27,6 +27,7 @@ if "quick_mode" not in st.session_state:
 if "qa_answers" not in st.session_state:
     st.session_state.qa_answers = ""
 
+@st.cache_resource
 def get_gemini_client():
     try:
         api_key = st.secrets["gemini"]["api_key"]
@@ -75,9 +76,9 @@ if st.session_state.step == 1:
     st.header("Step 1: Input Job Details")
     
     with st.container():
-        st.session_state.jd_text = st.text_area("Job Description", height=200)
-        st.session_state.app_questions = st.text_area("Application Questions (For 'Answer App Questions' flow only)", height=150)
-        st.session_state.user_context = st.text_area("Additional Context (Optional)", placeholder="Recent news, why you care, personal connection...")
+        st.session_state.jd_text = st.text_area("Job Description", height=200, max_chars=8000)
+        st.session_state.app_questions = st.text_area("Application Questions (For 'Answer App Questions' flow only)", height=150, max_chars=3000)
+        st.session_state.user_context = st.text_area("Additional Context (Optional)", placeholder="Recent news, why you care, personal connection...", max_chars=2000)
         
         col1, col2, col3 = st.columns(3)
         with col1:
