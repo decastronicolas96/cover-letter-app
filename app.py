@@ -2,7 +2,7 @@ import streamlit as st
 import json
 from google import genai
 
-from prompts import SYSTEM_PROMPT, MATCHING_PROMPT, DRAFTING_PROMPT, CRITIQUE_PROMPT, REVISION_PROMPT
+from prompts import SYSTEM_PROMPT, MATCHING_PROMPT, DRAFTING_PROMPT, CRITIQUE_PROMPT, REVISION_PROMPT, QA_PROMPT
 from context_data import CV_TEXT, STORY_BANK, STORY_INDEX, GOLDEN_EXAMPLES, POSITIONING_GUIDE
 from pdf_generator import generate_pdf
 
@@ -24,6 +24,8 @@ if "revision_count" not in st.session_state:
     st.session_state.revision_count = 0
 if "quick_mode" not in st.session_state:
     st.session_state.quick_mode = False
+if "qa_answers" not in st.session_state:
+    st.session_state.qa_answers = ""
 
 def get_gemini_client():
     try:
@@ -65,20 +67,35 @@ if st.session_state.step == 1:
     st.header("Step 1: Input Job Details")
     
     with st.container():
-        st.session_state.jd_text = st.text_area("Paste the Job Description", height=200)
+        st.session_state.jd_text = st.text_area("Paste the Job Description OR Application Questions", height=200)
         st.session_state.user_context = st.text_area("Additional Context (Optional)", placeholder="Recent news, why you care, personal connection...")
         
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
         with col1:
             analyze_clicked = st.button("Analyze & Match (Standard)", use_container_width=True)
         with col2:
             quick_clicked = st.button("🏎️ Quick Generation (Direct to PDF)", use_container_width=True)
+        with col3:
+            qa_clicked = st.button("📝 Answer App Questions", use_container_width=True)
             
-        if analyze_clicked or quick_clicked:
+        if analyze_clicked or quick_clicked or qa_clicked:
             if not st.session_state.jd_text:
-                st.warning("Please provide a Job Description.")
+                st.warning("Please provide a Job Description or Open-Ended Questions.")
             elif client:
-                if quick_clicked:
+                if qa_clicked:
+                    st.session_state.quick_mode = False
+                    with st.spinner("📝 Generating strategic answers..."):
+                        qa_prompt = QA_PROMPT.format(
+                            story_bank=STORY_BANK,
+                            cv_text=CV_TEXT,
+                            questions=st.session_state.jd_text
+                        )
+                        qa_result = call_gemini(client, qa_prompt)
+                        if qa_result:
+                            st.session_state.qa_answers = qa_result
+                            st.session_state.step = 5
+                            st.rerun()
+                elif quick_clicked:
                     st.session_state.quick_mode = True
                     with st.spinner("⚡ Generating perfect cover letter directly..."):
                         # 1. Matching
@@ -262,4 +279,16 @@ elif st.session_state.step == 4:
     )
     
     if st.button("Start New Cover Letter", use_container_width=True):
+        reset_app()
+
+# ==========================================
+# STEP 5: QA RESULTS
+# ==========================================
+elif st.session_state.step == 5:
+    st.header("Step 5: Application Answers")
+    st.success("Answers generated successfully!")
+    
+    st.text_area("Your Answers (Copy/Paste ready)", value=st.session_state.qa_answers, height=500)
+    
+    if st.button("Start New Session", use_container_width=True, type="primary"):
         reset_app()

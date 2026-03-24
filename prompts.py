@@ -135,3 +135,21 @@ INSTRUCTIONS:
 4. Do NOT violate any standard structural rules while revising.
 5. Output ONLY the plain text of the revised cover letter. No markdown formatting, no commentary. Start directly with the first paragraph.
 """
+
+QA_PROMPT = """
+You are an expert career strategist helping Nicolas De Castro answer short, open-ended job application questions.
+
+BACKGROUND & STORIES (Use these to answer factually):
+{story_bank}
+{cv_text}
+
+Application Questions to Answer:
+{questions}
+
+INSTRUCTIONS:
+1. Answer each question clearly, concisely, and directly.
+2. Adopt a confident, specific operator tone (metrics-driven, high-ownership).
+3. Format the output logically with clear headers matching each question so they can be easily copy/pasted.
+4. Draw directly from the provided stories and CV details (such as CMILLAS, Vibe Coding, Treinta, Mastercard, Capital One) to craft evidence-backed answers.
+5. Avoid generic filler. Be impactful and extremely succinct (3-5 sentences per answer maximum).
+"""
