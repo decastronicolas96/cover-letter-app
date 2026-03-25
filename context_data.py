@@ -120,6 +120,34 @@ Full Version (STAR)•Situation:oOne of my weaknesses is limited hands-on coding
 Story 15: Capital One - Improving IRIS Gen AI Search with Query ExpansionShort Bullet-Point Version (STAR)Situation:o        Gen AI Product Manager Intern at Capital One EPX division.o        Scope: IRIS, an internal AI-powered search product.o        Faced with ambiguous question: What feature could improve user experience? You will present at the end to leadership! (John m and maulin patel)o        Added challenges: manager gone 4/10 weeks + limited knowledge of product intricacies.Task:o        Align with diverse stakeholders and translate user needs into a clear business opportunity.o        Deliver a feasible, impactful product improvement.Action:o        Partnered with data scientists, engineers, and product teams via 1:1 interviews.o        Discovered common pain point: low recall (esp. highlighted by Agent Assist team).o        Researched extensively on search tech; shortlisted 3 improvements (Graph RAG, Query Expansion, Agentic RAG).o        Collaborated with data engineering and research to evaluate impact, effort, and risks.o        Selected Query Expansion; built prototype through live coding to validate hypothesis.o        Created PRD for engineers/data scientists and an executive slide deck for VP & MVP leadership.Result:o        Earned leadership buy-in to include feature in roadmap.o        Feature projected to increase recall by 14% and deliver ~$380K in OpEx savings/year.
 Full Version (STAR)•        Situation:o        During my internship at Capital One, I worked as a Gen AI Product Manager Intern in the EPX division, focused on enabling internal AI solutions. My project was IRIS, an internal technical search tool designed to allow AI-powered search based on intent and meaning rather than just keywords.o        When I joined, I was faced with a highly ambiguous challenge: What feature should we develop to improve IRIS’s user experience? This was complicated further by my manager being out for 4 of the 10 weeks of my internship and my limited familiarity with the product.•        Task:o        My responsibility was to reduce this ambiguity by partnering with stakeholders, uncovering real user needs, and translating them into a concrete product improvement that aligned with business priorities.•        Action:o        Stakeholder Engagement: Held exhaustive 1:1 interviews with key stakeholders—data scientists, engineers, and product teams consuming our APIs. Consistently heard a shared pain point: users needed higher recall in searches. One critical insight came from the Agent Assist team: they needed a “Google-like” experience to help agents find answers faster, directly impacting customer satisfaction.o        Research & Hypothesis Formation: Conducted in-depth research on search technology—both Capital One’s implementation and industry best practices. Narrowed down three potential solutions: Graph RAG, Query Expansion, and Agentic RAG.o        Feasibility Analysis: Partnered with data engineering and research teams to assess each option’s user impact, implementation effort, and risks.o        Prototyping & Validation: Chose Query Expansion as the most feasible. Built a prototype through live coding to test the hypothesis, demonstrating improved recall.o        Communication & Buy-In: Developed a PRD to document rationale and technical requirements for engineers and data scientists. Simultaneously created and delivered an executive presentation to VP Maulin Patel and Managing VP John Morgan to secure leadership support.•        Result:o        Secured buy-in to include Query Expansion in the IRIS roadmap.o        Projected to improve recall by 14% and deliver ~$380K in annual OpEx savings.o        Personally recognized for driving clarity from ambiguity, fostering cross-functional collaboration, and effectively influencing senior leadership through clear, data-driven communication.o        Learned to thrive in uncertain environments, balancing innovation with execution while aligning diverse stakeholders around a common vision.
 
+Story 16: Personal Project - NBA Betting Agent (AI & Vibe Coding)
+Short Bullet-Point Version (STAR)
+Situation:
+o        In my free time, combining my interests in AI, sports, and product development, I wanted to build a practical tool to analyze NBA betting opportunities and detect arbitrage using LLMs and APIs.
+Task:
+o        I tasked myself with building an end-to-end web application that integrates real-time data from various APIs (NBA, Odds, News, Wikipedia).
+Action:
+o        Architected and developed a full Streamlit application utilizing RAG principles, vectorizing recent news, historical context, and odds dispersion.
+o        Implemented complex logic for arbitrage detection across moneyline, spread, and totals markets to guarantee profit stake sizing.
+o        Engineered an AI-powered insights engine using an LLM to compute "Model Strength", "Market Agreement", and "Perceived News Risk".
+Result:
+o        Successfully launched a functional NBA Betting Agent that provides edge calculation, confidence breakdowns, and arbitrage detection.
+o        Demonstrated deep, hands-on knowledge of building agentic pipelines, RAG methodologies, and practical LLM applications (Vibe Coding), reinforcing my capabilities as an AI Product Manager.
+
+Full Version (STAR)
+•        Situation:
+o        Outside of my professional roles, I am passionate about "Vibe Coding" and building AI applications to solve real problems. I saw an opportunity to apply LLMs to sports betting analysis—an area rich with unstructured data (news) and structured data (odds, stats) where market inefficiencies like arbitrage exist.
+•        Task:
+o        My objective was to develop an end-to-end AI agent capable of aggregating real-time NBA data, identifying profitable arbitrage opportunities, and providing LLM-driven betting recommendations based on a holistic view of the market.
+•        Action:
+o        I architected and built a complete web application utilizing Streamlit, Python, and external APIs (NBA, The Odds API, News API, Wikipedia).
+o        I designed the system to normalize odds data across sportsbooks and implemented algorithms to detect arbitrage opportunities, complete with guaranteed profit stake sizing.
+o        I utilized advanced prompting and context window management (RAG principles) to feed the LLM real-time news, historical performance, and odds dispersion metrics, enabling it to compute nuanced metrics like "Model Strength", "Market Agreement", and "Perceived News Risk".
+o        I built this rapidly using AI development tools, showcasing my ability to translate a complex product vision into a working application efficiently.
+•        Result:
+o        The final product is a robust, multi-featured NBA Betting Agent that provides edge calculation, confidence breakdowns, and arbitrage detection.
+o        Building this project deepened my practical, hands-on understanding of LLM application architecture, prompt engineering, RAG methodologies, API integrations, and AI agents—skills that make me a technical and effective Gen AI Product Manager today.
+
 """
 
 # -------------------------------------------------------------------
@@ -141,6 +169,7 @@ Story 12: Treinta — inventory UX redesign, usage from 28% to 47%
 Story 13: Treinta — Book Lite failure, pivot to 3K+ paying users
 Story 14: WEAKNESS — technical feasibility evaluation
 Story 15: Capital One — IRIS GenAI search, query expansion, +14% recall, ~$380K savings
+Story 16: Personal Project — NBA Betting Agent, AI/LLM, Arbitrage, RAG pipelines, API integrations
 """
 
 # -------------------------------------------------------------------
