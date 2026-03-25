@@ -23,6 +23,8 @@ ABSOLUTE WRITING RULES (VIOLATION TRIGGERS FAILURE):
 6. Max length: exactly 4 paragraphs, strictly 300-380 words total (max 2400 characters). You MUST be concise.
 7. Max 1 semicolon total.
 8. No sentence starts with "I" more than 3 times in any single paragraph.
+9. NEVER mention work authorization, visa status, right to work, or sponsorship requirements.
+10. Strict Timeline Accuracy: You MUST NOT mix up the chronological order of experiences. The correct order is Mastercard Advisors -> Treinta (YC W21) -> Visa -> Columbia Business School -> Capital One. Do not hallucinate timelines.
 
 4-PARAGRAPH STRUCTURE:
 HEADER: Start the letter EXACTLY with:
@@ -103,6 +105,8 @@ CHECKLIST TO EVALUATE:
 6. Word count: Is it between 300 and 380 words? (Must be True to pass)
 7. Structure: Does it have the contact header, exactly 4 body paragraphs, and the standard sign-off? (Must be True to pass)
 8. 'I' Sentences: Does any single paragraph have more than 3 sentences starting with the word "I"? (Must be False to pass)
+9. Work Authorization: Does it mention work authorization, visas, or sponsorship? (Must be False to pass)
+10. Timeline: Does it incorrectly mix or reorder the timeline of Mastercard, Treinta, Visa, or Capital One? (Must be False to pass)
 
 OUTPUT FORMAT:
 Generate a rigorous Pass/Fail critique. Use JSON format exactly as shown:

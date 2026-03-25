@@ -249,6 +249,7 @@ elif st.session_state.step == 3:
                     revised = call_gemini(client, rev_prompt, model_name="gemini-2.5-pro")
                     if revised:
                         st.session_state.draft_text = revised
+                        st.session_state.editable_draft = revised  # Sync back to widget state so UI updates
                         st.session_state.revision_count += 1
                         
                         with st.spinner("Running self-critique..."):
