@@ -104,7 +104,8 @@ if st.session_state.step == 1:
                             story_bank=STORY_BANK,
                             cv_text=CV_TEXT,
                             jd_text=st.session_state.jd_text,
-                            questions=st.session_state.app_questions
+                            questions=st.session_state.app_questions,
+                            user_context=st.session_state.user_context
                         )
                         qa_result = call_gemini(client, qa_prompt, model_name="gemini-2.5-pro")
                         if qa_result:

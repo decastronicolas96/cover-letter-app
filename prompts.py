@@ -152,6 +152,9 @@ BACKGROUND & STORIES (Use these to answer factually):
 {story_bank}
 {cv_text}
 
+Additional Context/Instructions (if any):
+{user_context}
+
 Application Questions to Answer:
 {questions}
 
