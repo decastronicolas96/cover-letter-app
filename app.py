@@ -79,7 +79,7 @@ if st.session_state.step == 1:
     st.header("Step 1: Input Job Details")
     
     with st.container():
-        st.session_state.jd_text = st.text_area("Job Description", height=200, max_chars=8000)
+        st.session_state.jd_text = st.text_area("Job Description", height=200, max_chars=15000)
         st.session_state.app_questions = st.text_area("Application Questions (For 'Answer App Questions' flow only)", height=150, max_chars=3000)
         st.session_state.user_context = st.text_area("Additional Context (Optional)", placeholder="Recent news, why you care, personal connection...", max_chars=2000)
         
@@ -119,6 +119,8 @@ if st.session_state.step == 1:
                         match_prompt = MATCHING_PROMPT.format(
                             jd_text=st.session_state.jd_text,
                             story_index=STORY_INDEX,
+                            cv_text=CV_TEXT,
+                            user_context=st.session_state.user_context,
                             positioning_guide=POSITIONING_GUIDE
                         )
                         match_result = call_gemini(client, match_prompt)
@@ -144,6 +146,8 @@ if st.session_state.step == 1:
                         prompt = MATCHING_PROMPT.format(
                             jd_text=st.session_state.jd_text,
                             story_index=STORY_INDEX,
+                            cv_text=CV_TEXT,
+                            user_context=st.session_state.user_context,
                             positioning_guide=POSITIONING_GUIDE
                         )
                         result = call_gemini(client, prompt, model_name="gemini-2.5-pro")
