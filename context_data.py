@@ -63,12 +63,18 @@ in Agile to implement improvements, lifting daily active usage (DAU) by 9% acros
 MASTERCARD Bogota, Colombia 
 2019 – 2021 
 Consultant (2021), Associate Consultant (2019-2021) 
- Directed cross-functional teams to migrate +3M cards within a 10M-card portfolio; applied advanced segmentation and developed 
-a transactional analytics model lifting migrated-client spend by 7% and delivering US$20M in additional transactional volume 
- Spearheaded lifecycle optimization for major Caribbean bank by creating their first segmentation model (K-means in RStudio) 
-and complementing it with insights from user focus groups to tailor offer strategies, increasing customer transactionality by 12% 
- Conducted root-cause analysis of fraud and authorization issues for Colombia’s largest bank; coordinated Marketing & 
-Communications, Risk, and Product teams to deploy optimized controls, improving approval rates by 17 p.p 
+• Led, designed, and executed renewal strategy for debit card portfolio in biggest bank in Colombia; generated additional profit of +US$ 20MM.
+  - Directed cross-functional teams and PMO sessions to migrate +3M cards within a 10M-card portfolio.
+  - Conducted +10MM client segmentation to maximize migration profitability by 19%.
+  - Coded and implemented communication triggers and a transactional analytics model, improving migrated-client spend by ~7%.
+  - Created solid standardized process for reusing migration best practices within the Mastercard regional team.
+• Spearheaded life cycle optimization project for one of the largest issuers in the Caribbean: increased customer transactionality by 12% and overall spending by ~5%.
+  - Created the bank's first cardholder segmentation model using advanced data analysis techniques (K-means in RStudio).
+  - Complemented data with insights from user focus groups and experimented with test & learn tools to optimize communication channels, tones, and promotions.
+• Conducted root-cause analysis of fraud and authorization issues for Colombia's largest bank; coordinated cross-functional Product, Risk, and Marketing teams to deploy optimized controls, improving approval rates by 17 p.p.
+• Identified and presented initiatives to improve authorization & fraud key results for the largest issuer in the Caribbean, increasing revenues by ~US$ 5MM.
+• Designed value proposition strategy for an innovative credit card fostering financial inclusion within the agricultural sector, resulting in the adoption of +25K cards.
+• Structured and executed replicable training initiatives to coach new hires in consulting frameworks and analytics techniques.
  
 CMILLAS (Social entrepreneurship supporting education of marginalized children) Bogotá, Colombia
 Co-founder & Volunteer (2019 - 2021)
