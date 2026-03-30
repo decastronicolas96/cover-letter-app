@@ -2,7 +2,11 @@ import streamlit as st
 import json
 from datetime import datetime
 from google import genai
-from google.genai import types
+try:
+    from google.genai import types
+    HAS_GOOGLE_SEARCH = hasattr(types, "GoogleSearch")
+except ImportError:
+    HAS_GOOGLE_SEARCH = False
 
 from prompts import SYSTEM_PROMPT, MATCHING_PROMPT, DRAFTING_PROMPT, CRITIQUE_PROMPT, REVISION_PROMPT, QA_PROMPT, COMPANY_RESEARCH_PROMPT
 from context_data import CV_TEXT, STORY_BANK, STORY_INDEX, GOLDEN_EXAMPLES, POSITIONING_GUIDE
@@ -88,13 +92,13 @@ def research_company(client, company_name):
     """Use Gemini with Google Search grounding to research a company."""
     try:
         prompt = COMPANY_RESEARCH_PROMPT.format(company_name=company_name)
+        config = {"temperature": 0.3}
+        if HAS_GOOGLE_SEARCH:
+            config["tools"] = [types.Tool(google_search=types.GoogleSearch())]
         response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=[prompt],
-            config={
-                "tools": [types.Tool(google_search=types.GoogleSearch())],
-                "temperature": 0.3,
-            }
+            config=config,
         )
         # Track token usage
         try:
