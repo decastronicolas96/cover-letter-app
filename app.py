@@ -88,6 +88,28 @@ def call_gemini(client, user_prompt, model_name="gemini-2.5-flash", step_name="u
             st.error(f"⚠️ **Unexpected AI Error:** {error_msg}")
         return None
 
+def extract_company_name(jd_text):
+    """Extract company name from JD using simple heuristics."""
+    import re
+    skip = {"the", "a", "an", "our", "this", "we", "join", "dear", "are", "is"}
+    # Pattern 1: "About <Company>" section
+    match = re.search(r'(?:About|ABOUT)\s+([A-Z][A-Za-z0-9&.\' ]{1,30}?)(?:\n|\.|\s{2})', jd_text)
+    if match:
+        return match.group(1).strip()
+    # Pattern 2: "at <Company>" or "join <Company>"
+    match = re.search(r'(?:\bat\b|\bjoin\b)\s+([A-Z][A-Za-z0-9&.\' ]{1,35}?)(?:[,.\s!;\n]|\.\.)', jd_text, re.IGNORECASE)
+    if match:
+        name = match.group(1).strip().rstrip(".")
+        if name.lower() not in skip:
+            return name
+    # Pattern 3: First capitalized proper noun in the first 500 chars
+    for m in re.finditer(r'\b([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+){0,2})\b', jd_text[:500]):
+        name = m.group(1).strip()
+        if name.lower() not in skip and len(name) > 2:
+            return name
+    return ""
+
+
 def research_company(client, company_name):
     """Use Gemini with Google Search grounding to research a company."""
     try:
@@ -164,17 +186,39 @@ with st.sidebar:
         st.caption("Generate a draft to see quality metrics.")
 
     st.markdown("---")
-    st.header("Token Usage")
+    st.header("Token Usage & Cost")
+
+    # Gemini pricing per 1M tokens (USD, as of 2025)
+    PRICING = {
+        "gemini-2.5-pro": {"input": 1.25, "output": 10.00},
+        "gemini-2.5-flash": {"input": 0.15, "output": 0.60},
+    }
+    DEFAULT_PRICING = {"input": 0.15, "output": 0.60}
+
     if st.session_state.token_log:
         total_input = sum(t.get("input_tokens", 0) for t in st.session_state.token_log)
         total_output = sum(t.get("output_tokens", 0) for t in st.session_state.token_log)
-        st.metric("Total Input Tokens", f"{total_input:,}")
-        st.metric("Total Output Tokens", f"{total_output:,}")
+
+        # Compute cost per entry
+        total_cost = 0.0
+        for entry in st.session_state.token_log:
+            rates = PRICING.get(entry.get("model", ""), DEFAULT_PRICING)
+            cost_in = entry.get("input_tokens", 0) / 1_000_000 * rates["input"]
+            cost_out = entry.get("output_tokens", 0) / 1_000_000 * rates["output"]
+            entry["cost_usd"] = cost_in + cost_out
+            total_cost += entry["cost_usd"]
+
+        st.metric("Est. Session Cost", f"${total_cost:.4f}")
+        st.metric("Total Tokens", f"{total_input + total_output:,}")
         st.metric("API Calls", len(st.session_state.token_log))
 
         with st.expander("Per-Step Breakdown"):
             for entry in st.session_state.token_log:
-                st.caption(f"**{entry['step']}** ({entry['model']}): {entry.get('input_tokens', 0):,} in / {entry.get('output_tokens', 0):,} out")
+                st.caption(
+                    f"**{entry['step']}** ({entry['model']}): "
+                    f"{entry.get('input_tokens', 0):,} in / {entry.get('output_tokens', 0):,} out "
+                    f"— ${entry.get('cost_usd', 0):.4f}"
+                )
     else:
         st.caption("No API calls yet.")
 
@@ -185,7 +229,6 @@ if st.session_state.step == 1:
     st.header("Step 1: Input Job Details")
     
     with st.container():
-        st.session_state.company_name = st.text_input("Company Name", placeholder="e.g., FanDuel, Google, Stripe...")
         st.session_state.jd_text = st.text_area("Job Description", height=200, max_chars=15000)
         st.session_state.app_questions = st.text_area("Application Questions (For 'Answer App Questions' flow only)", height=150, max_chars=3000)
         st.session_state.user_context = st.text_area("Additional Context (Optional)", placeholder="Recent news, why you care, personal connection...", max_chars=2000)
@@ -222,9 +265,10 @@ if st.session_state.step == 1:
                 elif quick_clicked:
                     st.session_state.quick_mode = True
                     with st.spinner("⚡ Generating perfect cover letter directly..."):
-                        # 0. Company research (if company name provided)
-                        if st.session_state.get("company_name") and client:
-                            research = research_company(client, st.session_state.company_name)
+                        # 0. Company research (auto-extract name from JD)
+                        company = extract_company_name(st.session_state.jd_text)
+                        if company and client:
+                            research = research_company(client, company)
                             st.session_state.company_research = research or ""
 
                         enriched_context = st.session_state.user_context or ""
@@ -261,10 +305,11 @@ if st.session_state.step == 1:
                             st.rerun()
                 else:
                     st.session_state.quick_mode = False
-                    # Company research (if company name provided)
-                    if st.session_state.get("company_name") and client:
-                        with st.spinner("Researching company..."):
-                            research = research_company(client, st.session_state.company_name)
+                    # Company research (auto-extract name from JD)
+                    company = extract_company_name(st.session_state.jd_text)
+                    if company and client:
+                        with st.spinner(f"Researching {company}..."):
+                            research = research_company(client, company)
                             st.session_state.company_research = research or ""
 
                     with st.spinner("Matching stories to JD requirements..."):
