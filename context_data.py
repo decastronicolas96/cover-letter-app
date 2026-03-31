@@ -133,12 +133,14 @@ o        In my free time, combining my interests in AI, sports, and product deve
 Task:
 o        I tasked myself with building an end-to-end web application that integrates real-time data from various APIs (NBA, Odds, News, Wikipedia).
 Action:
-o        Architected and developed a full Streamlit application utilizing RAG principles, vectorizing recent news, historical context, and odds dispersion.
+o        Architected and developed a full Streamlit application using context-enriched LLM prompting, aggregating real-time data from 4 APIs (NBA stats, Odds, News, Wikipedia) into structured context windows.
 o        Implemented complex logic for arbitrage detection across moneyline, spread, and totals markets to guarantee profit stake sizing.
 o        Engineered an AI-powered insights engine using an LLM to compute "Model Strength", "Market Agreement", and "Perceived News Risk".
+o        Built AI guardrails: input sanitization against prompt injection, exponential backoff retry logic, strict token/timeout limits, and safe JSON parsing with fallback defaults.
+o        Later integrated MCP (Model Context Protocol) to expose the betting agent's capabilities as composable tools for external AI orchestration.
 Result:
 o        Successfully launched a functional NBA Betting Agent that provides edge calculation, confidence breakdowns, and arbitrage detection.
-o        Demonstrated deep, hands-on knowledge of building agentic pipelines, RAG methodologies, and practical LLM applications (Vibe Coding), reinforcing my capabilities as an AI Product Manager.
+o        Demonstrated deep, hands-on knowledge of context window engineering, prompt design, multi-API data orchestration, MCP integration, and AI safety patterns (Vibe Coding), reinforcing my capabilities as an AI Product Manager.
 
 Full Version (STAR)
 •        Situation:
@@ -148,11 +150,13 @@ o        My objective was to develop an end-to-end AI agent capable of aggregati
 •        Action:
 o        I architected and built a complete web application utilizing Streamlit, Python, and external APIs (NBA, The Odds API, News API, Wikipedia).
 o        I designed the system to normalize odds data across sportsbooks and implemented algorithms to detect arbitrage opportunities, complete with guaranteed profit stake sizing.
-o        I utilized advanced prompting and context window management (RAG principles) to feed the LLM real-time news, historical performance, and odds dispersion metrics, enabling it to compute nuanced metrics like "Model Strength", "Market Agreement", and "Perceived News Risk".
+o        I designed a context enrichment pipeline that aggregates real-time data from 4 APIs (NBA stats, The Odds API, News API, Wikipedia) into structured prompts, enabling the LLM to compute nuanced metrics like "Model Strength", "Market Agreement", and "Perceived News Risk" without requiring a vector database or retrieval layer.
+o        I implemented AI guardrails: input sanitization to protect against prompt injection and malicious control characters, exponential backoff retry logic for transient API failures, strict token limits and request timeouts for resource management, and safe JSON parsing with fallback defaults to prevent crashes.
+o        I later added MCP (Model Context Protocol) integration to expose the agent's analysis capabilities as composable tools, enabling external AI systems to invoke betting analysis, arbitrage detection, and odds comparison programmatically.
 o        I built this rapidly using AI development tools, showcasing my ability to translate a complex product vision into a working application efficiently.
 •        Result:
 o        The final product is a robust, multi-featured NBA Betting Agent that provides edge calculation, confidence breakdowns, and arbitrage detection.
-o        Building this project deepened my practical, hands-on understanding of LLM application architecture, prompt engineering, RAG methodologies, API integrations, and AI agents—skills that make me a technical and effective Gen AI Product Manager today.
+o        Building this project deepened my practical, hands-on understanding of LLM application architecture, prompt engineering, context window optimization, multi-API data orchestration, MCP integration, and AI safety/guardrails engineering--skills that make me a technical and effective Gen AI Product Manager today.
 
 """
 
@@ -175,7 +179,7 @@ Story 12: Treinta — inventory UX redesign, usage from 28% to 47%
 Story 13: Treinta — Book Lite failure, pivot to 3K+ paying users
 Story 14: WEAKNESS — technical feasibility evaluation
 Story 15: Capital One — IRIS GenAI search, query expansion, +14% recall, ~$380K savings
-Story 16: Personal Project — NBA Betting Agent, AI/LLM, Arbitrage, RAG pipelines, API integrations
+Story 16: Personal Project — NBA Betting Agent, AI/LLM, Arbitrage, context-enriched prompting, multi-API orchestration, MCP, AI guardrails
 """
 
 # -------------------------------------------------------------------
