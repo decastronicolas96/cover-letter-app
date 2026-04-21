@@ -40,6 +40,8 @@ if "deterministic_critique" not in st.session_state:
     st.session_state.deterministic_critique = []
 if "company_research" not in st.session_state:
     st.session_state.company_research = ""
+if "draft_key" not in st.session_state:
+    st.session_state.draft_key = 0
 
 @st.cache_resource
 def get_gemini_client():
@@ -410,10 +412,11 @@ elif st.session_state.step == 3:
     char_count = len(st.session_state.draft_text)
     st.info(f"**Length Check:** {word_count} words | {char_count} characters. *(Aim for < 380 words / 2400 chars to fit perfectly on 1 page with CBS PDF specs)*")
     
-    st.text_area("Current Draft", value=st.session_state.draft_text, height=400, disabled=False, key="editable_draft")
+    current_key = f"editable_draft_{st.session_state.draft_key}"
+    st.text_area("Current Draft", value=st.session_state.draft_text, height=400, disabled=False, key=current_key)
     # Updating session state manually just in case user edits the text area directly:
-    if st.session_state.editable_draft != st.session_state.draft_text:
-         st.session_state.draft_text = st.session_state.editable_draft
+    if st.session_state[current_key] != st.session_state.draft_text:
+         st.session_state.draft_text = st.session_state[current_key]
     
     # Show deterministic critique results
     if st.session_state.deterministic_critique:
@@ -447,7 +450,7 @@ elif st.session_state.step == 3:
                     revised = call_gemini(client, rev_prompt, model_name="gemini-2.5-pro", step_name="revision")
                     if revised:
                         st.session_state.draft_text = revised
-                        st.session_state.editable_draft = revised
+                        st.session_state.draft_key += 1
 
                         st.session_state.revision_count += 1
 
